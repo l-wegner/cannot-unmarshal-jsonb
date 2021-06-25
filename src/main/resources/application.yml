@@ -1,0 +1,29 @@
+micronaut:
+  application:
+    name: example
+    instance:
+      id: ${random.shortuuid}
+
+datasources:
+  '*':
+    driver-class-name: org.postgresql.Driver
+    dialect: POSTGRES
+    initialization-fail-timeout: -1 # wait forever until the db is ready
+
+flyway:
+  datasources:
+    '*':
+      locations: classpath:databasemigrations
+
+jackson:
+  serialization-inclusion: NON_ABSENT # Omit null and Optional.empty(), but include empty collections
+  serialization:
+    indent-output: false
+  deserialization:
+    failOnUnknownProperties: false
+    acceptEmptyStringAsNullObject: true
+    acceptEmptyArrayAsNullObject: true
+  json-view:
+    enabled: true
+  mapper:
+    acceptCaseInsensitiveEnums: true
